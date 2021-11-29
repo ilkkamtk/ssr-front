@@ -3,10 +3,11 @@ block content
     .forms
         .form-wrapper
             h3 Modify cat
-            form#modCatForm.light-border
+            form#modCatForm.light-border(action=uiUrl+"/save-edit-cat" method="post" )
                 input.light-border(type='text' name='name' placeholder='Name' value= cat.name)
                 input.light-border(type='date' name='birthdate' placeholder='Birthdate: YYYY-MM-DD' value= cat.birthdate.substring(0,10))
                 input.light-border(type='number' step='0.1' name='weight' placeholder='Weight' value= cat.weight)
+                input(type='hidden' name='catId' value= id)
                 select.light-border.add-owner(name='owner')
                     option(value='') Select owner
                     each user in users

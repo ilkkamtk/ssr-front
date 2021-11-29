@@ -111,6 +111,32 @@ const addCat = async (file, token) => {
   }
 };
 
+const modifyCat = async (data, token) => {
+  const id = data.catId;
+  delete data.catId;
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+  console.log('modifyCat', fetchOptions);
+  try {
+    const response = await fetch(url + '/cat/' + id, fetchOptions);
+    const json = await response.json();
+    console.log('addCat response', json);
+    if (!json.message) {
+      return false;
+    } else {
+      return json.message;
+    }
+  } catch (error) {
+    console.log('modifyCat', error.message);
+  }
+};
+
 module.exports = {
   checkToken,
   login,
@@ -118,4 +144,5 @@ module.exports = {
   getCat,
   getUsers,
   addCat,
+  modifyCat,
 };

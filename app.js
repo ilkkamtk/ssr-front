@@ -15,6 +15,7 @@ const {
   getCat,
   getUsers,
   addCat,
+  modifyCat,
 } = require('./utils/api');
 const app = express();
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -73,7 +74,7 @@ app.post('/auth', async (req, res) => {
   if (response) {
     req.session.user = response.user;
     req.session.token = response.token;
-    res.redirect('/');
+    res.redirect('./');
   } else {
     res.redirect('./login');
   }
@@ -97,6 +98,16 @@ app.post('/save-cat', checkLogin, upload.single('cat'), async (req, res) => {
   }
 });
 
+app.post('/save-edit-cat', checkLogin, async (req, res) => {
+  console.log('req.body', req.body);
+  const result = await modifyCat(req.body, req.session.token);
+  if (result) {
+    res.redirect('./');
+  } else {
+    res.render('edit-cat', { title: 'Edit cat' });
+  }
+});
+
 app.get('/add-cat', checkLogin, async (req, res) => {
   res.render('add-cat', { title: 'Add cat' });
 });
@@ -108,7 +119,12 @@ app.get('/modify-user', checkLogin, async (req, res) => {
 app.get('/edit/:catId', checkLogin, async (req, res) => {
   const cat = await getCat(req.session.token, req.params.catId);
   const users = await getUsers(req.session.token);
-  res.render('edit-cat', { title: 'Add cat', cat, users });
+  res.render('edit-cat', {
+    title: 'Edit cat',
+    id: req.params.catId,
+    cat,
+    users,
+  });
 });
 
 app.get('/delete/:catId', checkLogin, async (req, res) => {
