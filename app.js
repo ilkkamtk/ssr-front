@@ -16,7 +16,9 @@ const {
   getUsers,
   addCat,
   modifyCat,
+  deleteCat,
 } = require('./utils/api');
+const { timeSince } = require('./utils/dateFunctions');
 const app = express();
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 if (process.env.NODE_ENV === 'production') {
@@ -112,10 +114,6 @@ app.get('/add-cat', checkLogin, async (req, res) => {
   res.render('add-cat', { title: 'Add cat' });
 });
 
-app.get('/modify-user', checkLogin, async (req, res) => {
-  res.render('add-cat', { title: 'Add cat' });
-});
-
 app.get('/edit/:catId', checkLogin, async (req, res) => {
   const cat = await getCat(req.session.token, req.params.catId);
   const users = await getUsers(req.session.token);
@@ -123,16 +121,21 @@ app.get('/edit/:catId', checkLogin, async (req, res) => {
     title: 'Edit cat',
     id: req.params.catId,
     cat,
+    currentUser: req.session.user,
     users,
   });
 });
 
 app.get('/delete/:catId', checkLogin, async (req, res) => {
-  res.render('add-cat', { title: 'Add cat' });
+  const result = await deleteCat(req.session.token, req.params.catId);
+  res.render('delete-cat');
 });
 
 app.get('/', checkLogin, async (req, res) => {
   const cats = await getCats(req.session.token);
+  cats.forEach((cat) => {
+    cat.birthdate = timeSince(cat.birthdate);
+  });
   console.log('cats', cats);
   res.render('front', { title: 'Front', cats, user: req.session.user });
 });

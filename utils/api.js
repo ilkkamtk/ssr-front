@@ -137,6 +137,23 @@ const modifyCat = async (data, token) => {
   }
 };
 
+const deleteCat = async (token, catId) => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    const response = await fetch(url + '/cat/' + catId, fetchOptions);
+    const cat = await response.json();
+    return cat;
+  } catch (e) {
+    console.log('deleteCat', e.message);
+    return {};
+  }
+};
+
 module.exports = {
   checkToken,
   login,
@@ -145,4 +162,5 @@ module.exports = {
   getUsers,
   addCat,
   modifyCat,
+  deleteCat,
 };
