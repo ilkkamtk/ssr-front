@@ -1,0 +1,16 @@
+extends layout.pug
+block styles
+    link(rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css")
+block content
+    .container
+        #image.single
+            a(href=uiUrl + "/")= 'Back'
+            img(src=apiUrl + "/" + cat.filename, alt=cat.name data-coords=cat.coords)
+            #map
+block scripts
+    script(src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js")
+    script(src=uiUrl + "/js/mapbox.js")
+    script(src=uiUrl + "/js/single.js")
+
+
+

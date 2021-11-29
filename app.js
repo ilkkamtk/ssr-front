@@ -114,6 +114,18 @@ app.get('/add-cat', checkLogin, async (req, res) => {
   res.render('add-cat', { title: 'Add cat' });
 });
 
+app.get('/single/:catId', checkLogin, async (req, res) => {
+  const cat = await getCat(req.session.token, req.params.catId);
+  if (cat) {
+    res.render('single', {
+      title: 'Single cat',
+      cat,
+    });
+  } else {
+    res.redirect('./');
+  }
+});
+
 app.get('/edit/:catId', checkLogin, async (req, res) => {
   const cat = await getCat(req.session.token, req.params.catId);
   const users = await getUsers(req.session.token);
@@ -134,7 +146,7 @@ app.get('/delete/:catId', checkLogin, async (req, res) => {
 app.get('/', checkLogin, async (req, res) => {
   const cats = await getCats(req.session.token);
   cats.forEach((cat) => {
-    cat.birthdate = timeSince(cat.birthdate);
+    cat.birthdate = timeSince(cat.birthdate, 'en-GB');
   });
   console.log('cats', cats);
   res.render('front', { title: 'Front', cats, user: req.session.user });

@@ -6,7 +6,7 @@ block content
             li(class="light-border")
                 h2= cat.name
                 figure
-                    a(href=apiUrl + "/single/" + cat.cat_id)
+                    a(href=uiUrl + "/single/" + cat.cat_id)
                         img(src=apiUrl + "/thumbnails/" + cat.filename, alt=cat.name class="resp")
                 p= "Birthdate: " + cat.birthdate
                 p= "Weight: " + cat.weight

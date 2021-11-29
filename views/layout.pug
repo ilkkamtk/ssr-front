@@ -4,6 +4,7 @@ doctype html
 head
     meta(charset="utf8")
     title= title
+    block styles
     link(href= uiUrl + "/css/ui4.css" rel="stylesheet")
 .container
     if title !== "Login"
@@ -17,3 +18,4 @@ head
                     a(href= uiUrl + "/logout") Logout
     hr
     block content
+    block scripts
