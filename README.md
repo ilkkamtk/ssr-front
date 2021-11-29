@@ -1,6 +1,6 @@
 # ssr-front
 
-#### Apace settings:
+#### Apache settings:
 
 `sudo nano /etc/httpd/conf.d/node.conf`
 
