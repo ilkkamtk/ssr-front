@@ -1,0 +1,15 @@
+extends layout.pug
+block content
+    .forms
+        .form-wrapper
+            h3 Modify cat
+            form#modCatForm.light-border
+                input.light-border(type='text' name='name' placeholder='Name' value= cat.name)
+                input.light-border(type='date' name='birthdate' placeholder='Birthdate: YYYY-MM-DD' value= cat.birthdate.substring(0,10))
+                input.light-border(type='number' step='0.1' name='weight' placeholder='Weight' value= cat.weight)
+                select.light-border.add-owner(name='owner')
+                    option(value='') Select owner
+                    each user in users
+                        option(value= user.user_id selected= user.user_id === cat.owner)= user.name
+                button.light-border(type='submit') Save changes
+

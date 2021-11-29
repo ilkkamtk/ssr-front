@@ -1,0 +1,19 @@
+extends layout.pug
+block content
+    h1 List of cats
+    ul#list
+        each cat in cats
+            li(class="light-border")
+                h2= cat.name
+                figure
+                    a(href="./single/" + cat.cat_id)
+                        img(src=apiUrl + "thumbnails/" + cat.filename, alt=cat.name class="resp")
+                p= "Birthdate: " + cat.birthdate
+                p= "Weight: " + cat.weight
+                p= "Owner: " + cat.ownername
+                if (user.role === 0 || user.user_id === cat.owner)
+                    a(href="./edit/" + cat.cat_id)
+                        button Edit
+                    a(href="./delete/" + cat.cat_id)
+                        button Delete
+

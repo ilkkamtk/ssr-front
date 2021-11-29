@@ -1,0 +1,11 @@
+extends layout.pug
+block content
+    .forms
+        .form-wrapper
+            h3 Add cat
+            form#addCatForm.light-border(action=uiUrl+"save-cat" method="post" enctype="multipart/form-data")
+                input.light-border(type="text" name="name" placeholder="Name")
+                input.light-border(type="text" name="birthdate" placeholder="Birthdate: YYYY-MM-DD")
+                input.light-border(type="number" step="0.1" name="weight" placeholder="Weight")
+                input.light-border(type="file" name="cat" accept="image/*" placeholder="Choose file")
+                button.light-border(type="submit") Upload

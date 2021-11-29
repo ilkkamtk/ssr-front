@@ -1,0 +1,22 @@
+extends layout.pug
+block content
+  .forms
+    #login-wrapper.form-wrapper
+      h3 Login
+      form#login-form.light-border(action='./auth' method='post')
+        div
+          label Email:
+          input.light-border(type='text' name='username')
+        div
+          label Password:
+          input.light-border(type='password' name='password')
+        div
+          button.light-border(type='submit') Log In
+    button#log-out.light-border(style='display: none;') Log out
+    .form-wrapper
+      h3 Register
+      form#add-user-form.light-border(action='./register' method='post')
+        input.light-border(type='text' name='name' placeholder='Name')
+        input.light-border(type='text' name='email' placeholder='email')
+        input.light-border(type='password' name='passwd' placeholder='Password')
+        button.light-border(type='submit') Save

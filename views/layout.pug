@@ -1,0 +1,19 @@
+- const apiUrl = "/app"
+- const uiUrl = "."
+doctype html
+head
+    meta(charset="utf8")
+    title= title
+    link(href= uiUrl + "/css/ui4.css" rel="stylesheet")
+.container
+    if title !== "Login"
+        nav
+            ul
+                li
+                    a(href= uiUrl) Frontpage
+                li
+                    a(href= uiUrl + "add-cat") Add cat
+                li
+                    a(href= uiUrl + "logout") Logout
+    hr
+    block content
